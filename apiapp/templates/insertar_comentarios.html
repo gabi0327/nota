@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertyar Comentarios</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #add8e6; /* Azul cielo */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #212529; /* Color de texto oscuro para mejorar la legibilidad */
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa; /* Fondo claro para el formulario */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 2px solid #333;
+            background-color: white;
+            border-radius: 0.25rem;
+            font: 1.25rem / 1.5 sans-serif;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Insertar Comentarios</h1>
+    <form method="post" action="{% url 'insertar_comentarios' blog_id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="contenido_comentario">Contenido del comentario:</label>
+            <textarea class="form-control" id="contenido_comentario" name="contenido_comentario" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Comentario</button>
+    </form>
+</body>
+</html>

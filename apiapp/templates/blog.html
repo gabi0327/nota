@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #007bff;
+            border-radius: 10px;
+            color: white;
+        }
+        .form-container h1 {
+            text-align: center;
+        }
+        .form-container label {
+            color: white;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container textarea {
+            border-radius: 0;
+            border: none;
+            border-bottom: 2px solid white;
+            background-color: #007bff;
+            color: white;
+        }
+        .form-container input[type="text"]:focus,
+        .form-container input[type="email"]:focus,
+        .form-container textarea:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 2px solid #ffc107;
+        }
+        .form-container button {
+            background-color: #ffc107;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #ffc107;
+            opacity: 0.8;
+        }
+        .alert {
+            margin-bottom: 15px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Blog</h1>
+        {% if request.user.is_authenticated %}
+            <p>Hola, {{ request.user.username }}! Bienvenido a nuestro blog.</p>
+        {% else %}
+            <p>Hola, visitante. Por favor, <a href="{% url 'autenticarse' %}">inicia sesión</a> para acceder al contenido completo.</p>
+        {% endif %}
+
+ 
+
+        <form method="post" action="{% url 'guardar_blog' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="contenido_comentario">Contenido del Comentario:</label>
+                <textarea id="contenido_comentario" name="contenido_comentario" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="correo_electronico">Correo Electrónico:</label>
+                <input type="email" id="correo_electronico" name="correo_electronico" class="form-control">
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+                {% if form.correo_electronico.errors %}
+                    <div class="error-message">
+                        {{ form.correo_electronico.errors }}
+                    </div>
+                {% endif %}
+                <a href="https://accounts.google.com/lifecycle/steps/signup/name?dsh=S-1458746476:1709781178297053&flowEntry=SignUp&flowName=GlifWebSignIn&theme=mn&TL=ADg0xR32e0zPUk26FrQBnaO4YhbM2uSoKSTA12SL9siGcEV_aE7-p0RJ-z1rVhaG" target="_blank" rel="noopener noreferrer" style="color: lightgray;">Crear cuenta de Correo si no tienes aun</a>            </div>
+            <button type="submit" class="btn btn-primary">Guardar Blog</button>
+        </form>
+    </div>
+</body>
+</html>

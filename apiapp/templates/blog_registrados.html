@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs Registrados</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #add8e6; /* Azul cielo */
+        }
+        .card {
+            background-color: #f8f9fa; /* Fondo claro para las tarjetas */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+            margin-bottom: 20px; /* Espacio entre tarjetas */
+        }
+        .card-body {
+            color: #212529; /* Color de texto oscuro para mejorar la legibilidad */
+        }
+        .card-title {
+            margin-bottom: 10px; /* Espacio entre el título y el texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Blogs Registrados</h1>
+        {% for blog in blogs %}
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h2 class="card-title">{{ blog.nombre }}</h2>
+                    <p class="card-text">{{ blog.contenido_comentario }}</p>
+                    <p class="card-text">{{ blog.correo_electronico }}</p>
+                    {% if blog.usuario == user %}
+                        <a href="{% url 'actualizar_blog' blog.id %}" class="btn btn-primary">Actualizar</a>
+                        <a href="{% url 'eliminar_blog' blog.id %}" class="btn btn-danger">Eliminar</a>
+                    {% endif %}
+                    <a href="{% url 'mostrar_comentarios' blog.id %}" class="btn btn-info">Mostrar Comentarios</a>
+                    <a href="{% url 'insertar_comentarios' blog.id %}" class="btn btn-success">Insertar Comentario</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

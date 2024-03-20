@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Actualizar Blog</h1>
+        <form method="POST" action="{% url 'actualizar_blog' blog.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ blog.nombre }}">
+            </div>
+            <div class="form-group">
+                <label for="contenido_comentario">Contenido del Comentario:</label>
+                <textarea class="form-control" id="contenido_comentario" name="contenido_comentario">{{ blog.contenido_comentario }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="correo_electronico">Correo Electrónico:</label>
+                <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" value="{{ blog.correo_electronico }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
+    </div>
+</body>
+</html>

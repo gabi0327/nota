@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Comentarios</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #add8e6; /* Azul cielo */
+        }
+        .comments {
+            background-color: #f8f9fa; /* Fondo claro para las tarjetas */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+            margin-bottom: 20px; /* Espacio entre tarjetas */
+            padding: 10px;
+        }
+        .comments p {
+            color: #212529; /* Color de texto oscuro para mejorar la legibilidad */
+        }
+        .comments span {
+            color: #6c757d; /* Color de texto claro para detalles secundarios */
+        }
+        .btn-primary {
+            margin: 20px; /* Añade un margen superior al botón */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Comentarios</h1>
+        <a href="{% url 'blog_registrados' %}" class="btn btn-primary">Volver a Blog</a>
+        {% for comentario in comentarios %}
+            <div class="comments">
+                <p class="font-weight-bold">
+                    {{ comentario.usuario.username }} <!-- Asume que tienes un campo 'username' en tu modelo User -->
+                    <span class="text-muted font-weight-normal">
+                        {{ comentario.updated_at }} <!-- Asume que tienes un campo 'updated_at' para la fecha de creación -->
+                    </span>
+                </p>
+                {{ comentario.contenido_comentario | linebreaks }} <!-- Muestra el contenido del comentario -->
+                {% if comentario.usuario == user %}
+                    <a href="{% url 'eliminar_comentario' comentario.id %}" class="btn btn-danger">Eliminar</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
